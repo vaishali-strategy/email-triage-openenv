@@ -1,5 +1,5 @@
 from typing import List, Dict, Any
-from models import State, Email
+from .models import State, Email
 
 class Task:
     def __init__(self, id: str, description: str, difficulty: str):
