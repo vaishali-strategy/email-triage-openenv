@@ -1,0 +1,64 @@
+spec_version: 1
+name: email_triage_env
+type: space
+runtime: fastapi
+app: server.app:app
+port: 7860
+metadata:
+  description: A real-world email triage environment for AI agents.
+  tasks:
+    - id: easy
+      description: Archive a specific email from a known sender.
+      difficulty: easy
+    - id: medium
+      description: Reply to a customer support email with a specific resolution.
+      difficulty: medium
+    - id: hard
+      description: Categorize and archive multiple emails based on content.
+      difficulty: hard
+  action_space:
+    type: object
+    properties:
+      action_type:
+        type: string
+        enum: [read, archive, reply, label, delete]
+      email_id:
+        type: string
+      content:
+        type: string
+    required: [action_type]
+  observation_space:
+    type: object
+    properties:
+      emails:
+        type: array
+        items:
+          $ref: '#/definitions/Email'
+      current_email:
+        $ref: '#/definitions/Email'
+      last_action_status:
+        type: string
+      done:
+        type: boolean
+    required: [emails, last_action_status, done]
+definitions:
+  Email:
+    type: object
+    properties:
+      id:
+        type: string
+      sender:
+        type: string
+      subject:
+        type: string
+      body:
+        type: string
+      label:
+        type: string
+      is_archived:
+        type: boolean
+      is_deleted:
+        type: boolean
+      reply_sent:
+        type: string
+    required: [id, sender, subject, body, is_archived, is_deleted]
