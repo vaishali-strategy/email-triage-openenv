@@ -1,7 +1,7 @@
 import os
 import json
 from openai import OpenAI
-from email_triage_env.env import EmailTriageEnv
+from email_triage_env.env import EmailTriageEnv # Adjust this import if your env class is located elsewhere
 from email_triage_env.models import Action
 
 # --- 1. MANDATORY ENVIRONMENT VARIABLES ---
@@ -25,7 +25,7 @@ def run_baseline():
     
     for task_idx in range(len(env.tasks)):
         # --- REQUIRED LOG: START ---
-        print("START")
+        print("START") 
         
         obs = env.reset(task_idx)
         done = False
@@ -35,6 +35,46 @@ def run_baseline():
             {"role": "user", "content": f"Initial state: {obs.model_dump_json()}"}
         ]
 
+        while not done:
+            # --- REQUIRED LOG: STEP ---
+            print("STEP")
+            
+            response = client.chat.completions.create(
+                model=MODEL_NAME, # MUST use the variable, not a hardcoded string
+                messages=messages,
+                tools=[{
+                    "type": "function",
+                    "function": {
+                        "name": "take_action",
+                        "description": "Perform an action on an email.",
+                        "parameters": Action.model_json_schema()
+                    }
+                }],
+                tool_choice={"type": "function", "function": {"name": "take_action"}}
+            )
+            
+            tool_call = response.choices[0].message.tool_calls[0]
+            action_args = json.loads(tool_call.function.arguments)
+            action = Action(**action_args)
+            
+            obs, reward, done, info = env.step(action)
+            messages.append({"role": "assistant", "tool_calls": [tool_call]})
+            messages.append({
+                "role": "tool", 
+                "tool_call_id": tool_call.id, 
+                "name": "take_action", 
+                "content": f"Observation: {obs.model_dump_json()} | Reward: {reward.value} | Done: {done}"
+            })
+            
+            # Failsafe to prevent infinite loops locally
+            if env.state_data["steps"] >= 10:
+                break
+                
+        # --- REQUIRED LOG: END ---
+        print("END")
+
+if __name__ == "__main__":
+    run_baseline()
         while not done:
             # --- REQUIRED LOG: STEP ---
             print("STEP")
