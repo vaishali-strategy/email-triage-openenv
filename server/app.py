@@ -46,7 +46,7 @@ async def root():
         </head>
         <body>
             <div class='container'>
-                <h1>📧 Email Triage OpenEnv</h1>
+                <h1> Email Triage OpenEnv</h1>
                 <p>Status: <strong>Running</strong></p>
                 <hr>
                 <h2>Current Inbox State</h2>
