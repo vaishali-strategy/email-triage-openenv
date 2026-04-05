@@ -1,6 +1,6 @@
 from typing import Tuple, Dict, Any, Optional
-from .models import Action, Observation, Reward, State, Email
-from .tasks import TASKS
+from email_triage_env.models import Action, Observation, Reward, State, Email
+from email_triage_env.tasks import TASKS
 
 class EmailTriageEnv:
     def __init__(self):

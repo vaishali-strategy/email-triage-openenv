@@ -1,9 +1,9 @@
 from fastapi import FastAPI, HTTPException, Body
 from fastapi.responses import HTMLResponse
 from typing import Optional, Dict, Any
-from env import EmailTriageEnv
-from models import Action, Observation, Reward, State
-from tasks import TASKS
+from email_triage_env.env import EmailTriageEnv
+from email_triage_env.models import Action, Observation, Reward, State
+from email_triage_env.tasks import TASKS
 
 app = FastAPI(title="Email Triage OpenEnv")
 env = EmailTriageEnv()
