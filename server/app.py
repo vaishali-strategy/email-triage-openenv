@@ -9,9 +9,9 @@ import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "email_triage_env"))
 
-from env import EmailTriageEnv
-from models import Action, Observation, Reward, State
-from tasks import TASKS
+from email_triage_env.env import EmailTriageEnv
+from email_triage_env.models import Action, Observation, Reward, State
+from email_triage_env.tasks import TASKS
 
 app = FastAPI(title="Email Triage OpenEnv")
 env = EmailTriageEnv()
