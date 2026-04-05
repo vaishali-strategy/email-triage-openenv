@@ -14,6 +14,7 @@ class EmailTriageEnv:
         ]
 
     def reset(self, task_idx: int = 0) -> Observation:
+        task_idx = int(task_idx)
         # Map task_idx to task_id
         task_list = list(TASKS.keys())
         if task_idx < len(task_list):
