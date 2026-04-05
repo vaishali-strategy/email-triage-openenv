@@ -67,6 +67,6 @@ export PYTHONPATH=email_triage_env:$PYTHONPATH
 python inference.py
 ```
 
-## 🌍 HF Space Deployment
+## HF Space Deployment
 This environment is deployed to a Hugging Face Space. It is configured for Docker execution and tagged with `openenv` for discovery.
 - **Space URL**: https://huggingface.co/spaces/Proteinrequired/email-triage-env
