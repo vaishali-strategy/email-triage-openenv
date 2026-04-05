@@ -37,7 +37,7 @@ async def root():
     return f"""
     <html>
         <head>
-            <title>Email Triage OpenEnv</title>
+            <title> 📧 Email Triage OpenEnv</title>
             <style>
                 body {{ font-family: sans-serif; max-width: 800px; margin: 40px auto; line-height: 1.6; color: #333; }}
                 h1 {{ color: #2563eb; }}
