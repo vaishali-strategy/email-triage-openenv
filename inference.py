@@ -1,7 +1,7 @@
 import os
 import json
 from openai import OpenAI
-from email_triage_env.env import EmailTriageEnv
+from email_triage_env.env import EmailTriageEnv # Adjust this import if your env class is located elsewhere
 from email_triage_env.models import Action
 
 # --- 1. MANDATORY ENVIRONMENT VARIABLES ---
@@ -25,7 +25,7 @@ def run_baseline():
     
     for task_idx in range(len(env.tasks)):
         # --- REQUIRED LOG: START ---
-        print("START")
+        print("START") 
         
         obs = env.reset(task_idx)
         done = False
@@ -60,9 +60,9 @@ def run_baseline():
             obs, reward, done, info = env.step(action)
             messages.append({"role": "assistant", "tool_calls": [tool_call]})
             messages.append({
-                "role": "tool",
-                "tool_call_id": tool_call.id,
-                "name": "take_action",
+                "role": "tool", 
+                "tool_call_id": tool_call.id, 
+                "name": "take_action", 
                 "content": f"Observation: {obs.model_dump_json()} | Reward: {reward.value} | Done: {done}"
             })
             

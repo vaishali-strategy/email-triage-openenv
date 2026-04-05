@@ -4,6 +4,7 @@ type: space
 runtime: fastapi
 app: server.app:app
 port: 7860
+entrypoint: "email_triage_env.env:EmailTriageEnv" 
 metadata:
   description: A real-world email triage environment for AI agents.
   tasks:
